@@ -6,6 +6,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Person person = new Person("Даниил", "Ткаченко", 67);
+        Person personFromString = new Person("Даниил Ткаченко 67");
+
+        System.out.println(person);
+        System.out.println(personFromString);
+
+
         String s = "Hello my name is Daniil";
         String[] array = s.split(" ");
         System.out.println(Arrays.toString(array));
