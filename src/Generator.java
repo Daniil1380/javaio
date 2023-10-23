@@ -1,23 +1,23 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.List;
 import java.util.Random;
 
 public class Generator {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Random random = new Random();
 
         File fileForNames = new File("daniil/name.txt");
         File fileForLastNames = new File("daniil/lastname.txt");
+        File file = new File("daniil/file.txt");
 
         FileReader fileReaderForNames = new FileReader(fileForNames);
         FileReader fileReaderForLastNames = new FileReader(fileForLastNames);
+        FileWriter fileWriter = new FileWriter(file);
 
         BufferedReader bufferedReaderForNames = new BufferedReader(fileReaderForNames);
         BufferedReader bufferedReaderForLastNames = new BufferedReader(fileReaderForLastNames);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
         List<String> names = bufferedReaderForNames.lines()
                 .toList();
@@ -28,7 +28,16 @@ public class Generator {
         System.out.println("------------");
         System.out.println(lastNames);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100000; i++) {
+            boolean gender = random.nextBoolean();
+
+            if (gender) {
+                System.out.println("женский");
+            }
+            else {
+                System.out.println("Мужской");
+            }
+
             int age = random.nextInt(0, 80);
 
             int nameRandomNumber = random.nextInt(0, names.size());
@@ -37,8 +46,14 @@ public class Generator {
             int lastNameRandomNumber = random.nextInt(0, lastNames.size());
             String lastName = lastNames.get(lastNameRandomNumber);
 
-            System.out.println(name + " " + lastName + " " + age);
+            String generatedString = name + " " + lastName + " " + age;
+            bufferedWriter.write(generatedString);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+            //bufferedWriter.append(name).append(" ").append(lastName).append(" ").append(String.valueOf(age));
         }
+
+
 
     }
 }
